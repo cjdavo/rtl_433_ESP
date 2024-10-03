@@ -90,6 +90,7 @@
   DECL(geo_minim) \
   DECL(govee) \
   DECL(govee_h5054) \
+  DECL(gridstream) \
   DECL(gt_tmbbq05) \
   DECL(gt_wt_02) \
   DECL(gt_wt_03) \
@@ -234,7 +235,6 @@
   DECL(wt450) \
   DECL(X10_RF) \
   DECL(x10_sec) \
-  DECL(gridstream) \
   /* Add new decoders here. */
 #define NUMOF_OOK_DEVICES 157
-#define NUMOF_FSK_DEVICES 80
+#define NUMOF_FSK_DEVICES 81
