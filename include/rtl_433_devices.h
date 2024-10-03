@@ -245,7 +245,7 @@
     DECL(wt450)                      \
     DECL(X10_RF)                     \
     DECL(x10_sec)                    \
-    DECL(gridstream)                 \
+    DECL(yale_hsa)                   \
     /* Add new decoders here. */
 #  define NUMOF_OOK_DEVICES 157
 #  define NUMOF_FSK_DEVICES 80
