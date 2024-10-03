@@ -14,7 +14,7 @@ The initial port implements only enables a subset of the available modulations a
 
 ### OOK
 
-```
+```plaintext
 OOK_MC_ZEROBIT
 OOK_PULSE_DMC
 OOK_PULSE_MANCHESTER_ZEROBIT
@@ -29,18 +29,20 @@ OOK_PULSE_RZ
 
 ### FSK
 
-```
+```plaintext
 FSK_PULSE_MANCHESTER_ZEROBIT
 FSK_PULSE_PCM
 FSK_PULSE_PWM
 ```
+
+Please note that FSK or OOK demodulation mode can not be used simultaneously, due the usage of the receiver chipset's signal demodulator.
 
 ## Enabled Device Decoders from rtl_433 release 22.11
 
 
 ### OOK Signal Device Decoders
 
-```
+```plaintext
 Registering protocol [0] "Amazon Basics Meat Thermometer"
 Registering protocol [1] "Acurite 896 Rain Gauge"
 Registering protocol [2] "Acurite 609TXC Temperature and Humidity Sensor"
@@ -182,7 +184,7 @@ The gaps in the numbers are device decoders disabled by default.
 
 ### FSK Signal Device Decoders 
 
-```
+```plaintext
 Registering protocol [0] "Ambient Weather WH31E Thermo-Hygrometer Sensor, EcoWitt WH40 rain gauge"
 Registering protocol [2] "TBH weather sensor"
 Registering protocol [3] "Badger ORION water meter, 100kbps (-f 916.45M -s 1200k)"
@@ -263,11 +265,13 @@ Registering protocol [79] "Unbranded SolarTPMS for trucks"
 
 These are the sensors that are part of my personal collection, and can confirm that they work correctly.  Other sensors devices are on a best effort basis as I have no method to test and confirm functionality.
 
+```
 Acurite Tower - Acurite 592TXR Temp/Humidity, 592TX Temp, 5n1 Weather Station, 6045 Lightning, 899 Rain, 3N1, Atlas
 LaCrosse-TX141Bv3 - LaCrosse TX141-Bv2, TX141TH-Bv2, TX141-Bv3, TX141W, TX145wsdth, (TFA, ORIA) sensor
 Acurite-986 - Acurite 986 Refrigerator / Freezer Thermometer
 Skylink_HA-434TL_motion - Skylink HA-434TL motion sensor
 FineOffSet WH51
+```
 
 ## Transceiver Modules Supported
 
@@ -277,11 +281,13 @@ Datasheet for the CC1101 board I'm using
 
 [CC1101 datasheet](docs/E07-M1101D-TH_Usermanual_EN_v1.30.pdf)
 
-### SX127X - Heltec WiFi LoRa 32 and LILYGO® LoRa32
+### SX127X - Heltec WiFi LoRa 32v2 and LILYGO® LoRa32
 
-This is the [Heltec SX127X](https://heltec.org/project/wifi-lora-32/) board I used for development. I used the 433 Mhz Board
+This is the [Heltec SX127X](https://heltec.org/project/wifi-lora-32v2/) board I used for development. I used the 433 Mhz Board with the SX127X chipset.
 
-This is the [LILYGO® LoRa32 V2.1_1.6.1 433](https://www.lilygo.cc/products/lora3?variant=42476923879605) board I used for development. I used the 433 Mhz Board
+This is the [LILYGO® LoRa32 V2.1_1.6.1 433](https://www.lilygo.cc/products/lora3?variant=42476923879605) board I used for development. I used the 433 Mhz Board with the SX127X chipset.
+
+When your purchasing one of these, please watch out for similar boards that do not use the SX127X chipset.  These others boards will not work, as the required receiver mode is not available in the chipset.
 
 ### SX1278 - external to ESP32 DOIT DevKit V1
 
@@ -301,6 +307,8 @@ Details are [here](example/OOK_Receiver/README.md)
 
 * OpenMQTTGateway - https://github.com/1technophile/OpenMQTTGateway
   - Currently available in the production branch
+
+* Acurite 5n1 to Weather Services Forwarder - https://github.com/shchuko/acurite-bridge
 
 ## Roadmap / Next Steps
 
@@ -322,13 +330,13 @@ The RSSI Threshold for signal detection is automatically determined based on the
 
 For background see section 2.1.3.2. of SX127X Data sheet
 
-To tune the SX127X OOK RSSI FIXED Threshold two values are used to determine if the threhold needs to be increased or decreased.  The first is the noise recevied between signals.  If the number of noise bits received between signals is greater than 100, then the threshold is incremented.  Second is the unparsed signals.  If an unparsed signal is received, but it has less than 20 pulses, the threhold is decremented.
+To tune the SX127X OOK RSSI FIXED Threshold two values are used to determine if the threshold needs to be increased or decreased.  The first is the noise received between signals.  If the number of noise bits received between signals is greater than 100, then the threshold is incremented.  Second is the unparsed signals.  If an unparsed signal is received, but it has less than 20 pulses, the threshold is decremented.
 
 The first approach is what is recommended in the SX127X datasheet, and the second is a control to lower the threshold if it is too high and incomplete signals are received.
 
 # Compile definition options
 
-```
+```plaintext
 DEMOD_DEBUG           ; enable verbose debugging of signal processing
 DEVICE_DEBUG          ; Validate fields are mapped to response object ( rtl_433 )
 MEMORY_DEBUG          ; display heap usage information
@@ -351,58 +359,75 @@ OOK_MODULATION        ; Enable OOK Device Decoders, setting to false enables FSK
 
 ## RF Module Wiring
 
+```plaintext
 ONBOARD_LED           ; GPIO pin to toggle during signal reception ( Typically onboard LED )
+```
 
 ### SX1276 Module Options
 
+```plaintext
 RF_SX1276             ; Enable support for SX1276 Transceiver
-OOK_FIXED_THRESHOLD   ; Inital OOK threshold ( See 2.1.3.2. of datasheet ), defaults to 90
+OOK_FIXED_THRESHOLD   ; Initial OOK threshold ( See 2.1.3.2. of datasheet ), defaults to 90
 AUTOOOKFIX            ; Set to enable automatic setting of OOK_FIXED_THRESHOLD based on noise level between signals
+```
 
-### SX1276 Module Wiring ( Required if not using standard configuraton )
+### SX1276 Module Wiring ( Required if not using standard configuration )
 
+```plaintext
 RF_MODULE_CS          ; SX1276 SPI Chip select
 RF_MODULE_DIO0        ; SX1276 DIO0 PIN
 RF_MODULE_RST         ; SX1276 RST PIN
 RF_MODULE_DIO1        ; SX1276 DIO1 PIN
+```
 
 ### SX1278 Module Options
 
+```plaintext
 RF_SX1278 - Enable support for SX1276
-OOK_FIXED_THRESHOLD   ; Inital OOK threshold ( See 2.1.3.2. of datasheet ), defaults to 90
+OOK_FIXED_THRESHOLD   ; Initial OOK threshold ( See 2.1.3.2. of datasheet ), defaults to 90
 AUTOOOKFIX            ; Set to enable automatic setting of OOK_FIXED_THRESHOLD based on noise level between signals
+```
 
-### SX1278 Module Wiring ( Required if not using standard configuraton )
+### SX1278 Module Wiring ( Required if not using standard configuration )
 
+```plaintext
 RF_MODULE_CS          ; SX1278 SPI Chip select
 RF_MODULE_DIO0        ; SX1278 DIO0 PIN
 RF_MODULE_RST         ; SX1278 RST PIN
 RF_MODULE_DIO1        ; SX1278 DIO1 PIN
+```
 
 ### CC1101 Module Options
 
+```plaintext
 RF_CC1101             ; Enable support for CC1101 Transceiver
 NO_DEAF_WORKAROUND    ; Workaround for issue #16 ( by default the workaround is enabaled )
+```
 
 ### CC1101 Module Wiring
 
+```plaintext
 RF_MODULE_CS          ; CC1101 SPI Chip select
 RF_MODULE_GDO0        ; CC1101 GDOO PIN
 RF_MODULE_GDO2        ; CC1101 GDO2 PIN
+```
 
-## RF Module SPI Wiring ( Required if not using standard configuraton )
+## RF Module SPI Wiring ( Required if not using standard configuration )
 
 When using a non standard SPI configuration ( Standard config is SCK - 18, MISO - 19, MOSI - 23, CS - 5)
 
+```plaintext
 RF_MODULE_SCK         ; SPI Clock
 RF_MODULE_MISO        ; SPI Serial Output
 RF_MODULE_MOSI        ; SPI Serial Input
 RF_MODULE_CS          ; SPI Chip select
+```
 
 ## Porting approach
 
 Copying src files
 
+```plaintext
 Copying rtl_433/src abuf.c to src/rtl_433
 Copying rtl_433/src bitbuffer.c to src/rtl_433
 Copying rtl_433/src compat_time.c to src/rtl_433
@@ -414,15 +439,19 @@ Copying rtl_433/src output_log.c to src/rtl_433
 Copying rtl_433/src pulse_data.c to src/rtl_433
 Copying rtl_433/src r_util.c to src/rtl_433
 Copying rtl_433/src util.c to src/rtl_433
+```
 
 These src files need copying and updating
 
+```shell
 cp ../rtl_433/src/pulse_analyzer.c ../src/rtl_433
 cp ../rtl_433/src/pulse_slicer.c ../src/rtl_433
 cp ../rtl_433/src/r_api.c ../src/rtl_433
+```
 
 Copying include files
 
+```plaintext
 Copying rtl_433/include abuf.h to include
 Copying rtl_433/include bitbuffer.h to include
 Copying rtl_433/include compat_time.h to include
@@ -441,19 +470,22 @@ Copying rtl_433/include r_device.h to include
 Copying rtl_433/include r_util.h to include
 Copying rtl_433/include rfraw.h to include
 Copying rtl_433/include util.h to include
+```
 
 These include files need copying and updating
 
+```shell
 cp ../rtl_433/include/data.h ../include
 cp ../rtl_433/include/pulse_data.h ../include
 cp ../rtl_433/include/r_private.h ../include
 cp ../rtl_433/include/rtl_433.h ../include
+```
 
 ## Codebase conflicts
 
 * ESPiLight and rtl_433 conflict on silvercrest
 
-```
+```plaintext
 .platformio/packages/toolchain-xtensa32/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/bin/ld: Warning: size of symbol `silvercrest' changed from 4 in .pio/build/rtl_433-9e0770/libb28/libESPiLight.a(protocol.c.o) to 76 in .pio/build/rtl_433-9e0770/lib395/librtl_433_ESP.a(silvercrest.c.o)
 ```
 
@@ -477,5 +509,8 @@ January 2023
 * [RTL 433 ON ESP32 DEVICE - MQTT HOME ASSISTANT](https://youtube.com/watch?v=H-JXWbWjJYE&feature=shares)
 * [Using low-cost wireless sensors in the unlicensed bands](https://lwn.net/Articles/921497/)
 
-Febuary 2023
+February 2023
 * [OpenMQTTGateway Connects Many Things to Your Home Automation](https://www.youtube.com/watch?v=_gdXR1uklaY)
+
+January 2024
+* [LilyGO 433MHz Lora Board - Sensordaten per openMQTTGateway an HA übertragen](https://www.youtube.com/watch?v=KbRNd1DyRbg)
