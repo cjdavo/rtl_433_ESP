@@ -323,8 +323,8 @@ void rtlSetup() {
       memcpy(&cfg->devices[78], &tpms_toyota, sizeof(r_device));
       memcpy(&cfg->devices[79], &tpms_truck, sizeof(r_device));
       memcpy(&cfg->devices[80], &gridstream96, sizeof(r_device));
-      memcpy(&cfg->devices[80], &gridstream192, sizeof(r_device));
-      memcpy(&cfg->devices[80], &gridstream384, sizeof(r_device));
+      memcpy(&cfg->devices[81], &gridstream192, sizeof(r_device));
+      memcpy(&cfg->devices[82], &gridstream384, sizeof(r_device));
     }
 
     // end of fragment
