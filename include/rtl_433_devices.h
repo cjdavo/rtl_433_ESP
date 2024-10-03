@@ -101,6 +101,7 @@
     DECL(geo_minim)                  \
     DECL(govee)                      \
     DECL(govee_h5054)                \
+    DECL(gridstream)                 \
     DECL(gt_tmbbq05)                 \
     DECL(gt_wt_02)                   \
     DECL(gt_wt_03)                   \
