@@ -101,7 +101,9 @@
     DECL(geo_minim)                  \
     DECL(govee)                      \
     DECL(govee_h5054)                \
-    DECL(gridstream)                 \
+    DECL(gridstream96)               \
+    DECL(gridstream192)              \
+    DECL(gridstream384)              \
     DECL(gt_tmbbq05)                 \
     DECL(gt_wt_02)                   \
     DECL(gt_wt_03)                   \
@@ -249,7 +251,7 @@
     DECL(yale_hsa)                   \
     /* Add new decoders here. */
 #  define NUMOF_OOK_DEVICES 157
-#  define NUMOF_FSK_DEVICES 81
+#  define NUMOF_FSK_DEVICES 83
 /* Add new decoders here. */
 #else
 /**
