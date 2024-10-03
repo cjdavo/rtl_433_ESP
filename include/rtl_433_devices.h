@@ -246,9 +246,10 @@
     DECL(X10_RF)                     \
     DECL(x10_sec)                    \
     DECL(yale_hsa)                   \
+    DECL(gridstream)                 \
     /* Add new decoders here. */
 #  define NUMOF_OOK_DEVICES 157
-#  define NUMOF_FSK_DEVICES 80
+#  define NUMOF_FSK_DEVICES 81
 /* Add new decoders here. */
 #else
 /**
